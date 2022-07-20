@@ -5,6 +5,7 @@ namespace LargeLaravel\Containers\Book\UI\API\Routes;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use LargeLaravel\Containers\Book\UI\API\Controllers\BookController;
+use LargeLaravel\Containers\Book\UI\API\Controllers\StoreBookController;
 
 class RouteProvider extends ServiceProvider
 {
@@ -18,13 +19,22 @@ class RouteProvider extends ServiceProvider
         Route::group([
             'prefix' => 'api/book/',
         ], function () {
-            Route::get(
-                '',
-                [
-                    'as' => 'api_book_list',
-                    'uses' => BookController::class . '@list',
-                ]
-            );
+            [
+                Route::get(
+                    '',
+                    [
+                        'as' => 'api_book_list',
+                        'uses' => BookController::class . '@list',
+                    ]
+                ),
+                Route::post(
+                    'store',
+                    [
+                        'as' => 'api_book_store',
+                        'uses' => StoreBookController::class . '@store',
+                    ]
+                ),
+            ];
         });
     }
 }
